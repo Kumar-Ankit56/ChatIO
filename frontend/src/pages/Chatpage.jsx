@@ -3,22 +3,23 @@ import { useEffect } from "react";
 import axios from "axios";
 
 function Chatpage() {
-  const [datas, setData] = useState("");
+  const [chats, setChat] = useState("");
   const fetchChats = async () => {
-    await axios.get("http://localhost:5000/api/chats").then((response) => {
-      // console.log(response.data);
-      const mydata = response.data;
-      // console.log(mydata);
-      setData(mydata);
-      console.log(mydata);
-    });
+    const { data } = await axios.get("http://localhost:5000/api/chats");
+    setChat(data);
   };
 
+  console.log(chats);
   useEffect(() => {
     fetchChats();
   }, []);
-
-  return <div>Mein</div>;
+  return (
+    <div>
+      {chats.map((chat) => {
+        return <div>{chat.chatName}</div>;
+      })}
+    </div>
+  );
 }
 
 export default Chatpage;
