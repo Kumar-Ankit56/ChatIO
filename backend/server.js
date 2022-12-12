@@ -3,12 +3,14 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 const chats = require("./data/data");
+const connectDB = require("./config/db");
 app.options("*", cors());
 
 const corsOptions = {
   origin: "http://127.0.0.1:5173",
 };
 
+connectDB();
 app.use(cors(corsOptions));
 
 app.get("/", (req, res) => {
